@@ -61,7 +61,6 @@ var playselected = false;
 var tid;
 
 window.onload = function() {
-
 	document.onkeydown = function(e){
 		switch(e.keyCode) {
 			case 37: //left arrow
@@ -114,6 +113,8 @@ function initMenu() {
 
 //starts the timer, makes the snake and makes a food
 function beginPlay() {
+	playSelected = false;
+
 	for(iter =0; iter < play.length; iter++) {
 		var item = document.getElementById(play[iter]);
 		item.setAttribute("class", 'ground');
@@ -214,14 +215,24 @@ function update() {
 			alert('illegal direction');
 	}
 	
+	//test if new position is out of bounds
+	if(newX < 0 || newX > gridXdim || newY < 0 || newY > gridYdim) {
+		//collided with edge
+		stop();
+		playselected = false;
+		initMenu();
+		return;
+	}
+	
 	//set grid to snake
 	var newLocClass = document.getElementById(newX+'-'+newY).getAttribute('class');
 
-	//test new position
-	if(newX < 0 || newX > gridXdim || newY < 0 || newY > gridYdim) {
-		//collided with edge
-	} else if(newLocClass == 'snake') {
+	
+	if(newLocClass == 'snake') {
 		//collided with self
+		stop();
+		playselected = false;
+		initMenu();
 	} else { 
 		if(newLocClass != 'food')
 			//did not eat food, move normally
@@ -254,6 +265,7 @@ function stop() {
 <title>JavaSnake</title>
 </head>
 <body>
+<p>Tested on Chrome and Firefox</p>
 <table id="grid" />
 </body>
 </html>
