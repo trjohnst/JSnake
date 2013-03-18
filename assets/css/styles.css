@@ -1,0 +1,38 @@
+body {
+	line-height: 1;
+	color: black;
+	background: #f2f2f2;
+}
+table {
+	border-collapse: separate;
+	border-spacing: 1px;
+}
+table#grid {
+	margin: 0;
+	padding: 0;
+	height: 10cm;
+	width: 16cm; 
+}
+td {
+	text-align: left;
+	font-weight: normal;
+	width: 10px;
+	height: 10px;
+	margin: 0;
+	padding: 0;
+}
+td.ground {
+	background: #a0a0a0;
+}
+td.snake {
+	background: #6ECF4D;
+}
+td.food {
+	background: #ff5555;
+}
+td.playunselected {
+	background: #6ECF4D;
+}
+td.playselected {
+	background: #ff5555;
+}
