@@ -1,3 +1,7 @@
+* {
+	margin: 0;
+	padding: 0;
+}
 body {
 	line-height: 1;
 	color: black;
@@ -20,6 +24,10 @@ td {
 	height: 10px;
 	margin: 0;
 	padding: 0;
+}
+.container {
+	display: inline;
+	width: 121px;
 }
 td.ground {
 	background: #a0a0a0;

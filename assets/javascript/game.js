@@ -15,9 +15,20 @@ var play = new Array(
 	 "16-4","16-5","18-4","18-5","17-6","17-7","17-8" //Y
 	 );
 var playselected = false;
+var score = 0;
 var tid;
+var timeBegun;
+var timeElapsed;
+
+// tell user time before they leave
+// window.onbeforeunload = function() {
+// 	alert('yo');
+// };
 
 window.onload = function() {
+
+	timeBegun = Math.round(new Date().getTime()/1000);
+
 	document.onkeydown = function(e){
 		switch(e.keyCode) {
 			case 37: //left arrow
@@ -37,7 +48,7 @@ window.onload = function() {
 
 	initGrid();
 	initMenu();
-}
+};
 
 function togglePlay() {
 	playselected = !playselected;
@@ -148,8 +159,7 @@ function makeFood() {
 	setGrid(foodX+'-'+foodY, 'food');
 }
 
-//called at intervals to update game
-function update() {
+function updateSnake() {
 	//find the next grid member to be a snake
 	switch(dir) {
 		case 0:
@@ -198,6 +208,8 @@ function update() {
 			//ate food -> increase speed, and make another food
 			speed = Math.floor(9/10*speed);
 			makeFood();
+			score++;
+			document.getElementById('score').innerHTML = score;
 		}
 
 		//set new position
@@ -208,6 +220,20 @@ function update() {
 		//call another update
 		tid = setTimeout(update, speed);
 	}
+}
+
+function updateTime() {
+	var newTime = Math.round(new Date().getTime()/1000);
+	timeElapsed = newTime - timeBegun;
+
+	document.getElementById('time').innerHTML = timeElapsed;
+}
+
+//called at intervals to update game
+function update() {
+	updateSnake();
+
+	updateTime();
 }
 
 //called to stop update
