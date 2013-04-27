@@ -5,12 +5,37 @@ var gridYdim = 20;
 var speed = 400;
 
 
-
+var scoreEl;
+var timeEl;
+var gridEl;
 var score = 0;
-var tid;
+var gameTimer;
 var playTimer;
 var timeBegun;
 var timeElapsed;
+var totalTime = 0;
+var grid = {
+	element: null,
+	init: function() {
+		this.element = document.getElementById('grid');
+		var row;
+		var col;
+		for( y = 0; y < gridYdim; y++) {
+			row = document.createElement('tr');
+			this.element.appendChild(row);
+			for( x = 0; x < gridXdim; x++) {
+				col = document.createElement('td');
+				col.setAttribute("id", x+"-"+y);
+				col.setAttribute("class", 'ground');
+				row.appendChild(col);
+			}
+		}
+	},
+	set : function(locID, newClass) {
+		var element = document.getElementById(locID);
+		element.setAttribute("class", newClass);
+	}
+}
 
 // tell user time before they leave
 // window.onbeforeunload = function() {
@@ -18,6 +43,10 @@ var timeElapsed;
 // };
 
 window.onload = function() {
+	scoreEl = document.getElementById('score');
+	timeEl = document.getElementById('time');
+
+	timeEl.innerHTML = totalTime;
 
 	document.onkeydown = function(e){
 		switch(e.keyCode) {
@@ -36,7 +65,7 @@ window.onload = function() {
 		}
 	};
 
-	initGrid();
+	grid.init();
 };
 
 
@@ -44,44 +73,20 @@ window.onload = function() {
 function beginPlay() {
 
 	timeBegun = Math.round(new Date().getTime()/1000);
-	playTimer = updateTime();
+	playTimer = setTimeout(updateTime, 1000);
 
-	tid = setTimeout(update, speed);
+	gameTimer = setTimeout(update, speed);
 
 	snake.init();
 	food.init();
-}
-
-//utility function to give a class to a grid member
-function setGrid(locID, newClass) {
-	var item = document.getElementById(locID);
-	item.setAttribute("class", newClass);
-}
-
-
-function initGrid() {
-	var elem = document.getElementById("grid");
-	var row;
-	var col;
-	for( y = 0; y < gridYdim; y++) {
-		row = document.createElement('tr');
-		elem.appendChild(row);
-		for( x = 0; x < gridXdim; x++) {
-			col = document.createElement('td');
-			col.setAttribute("id", x+"-"+y);
-			col.setAttribute("class", 'ground');
-			row.appendChild(col);
-		}
-	}
-	
 }
 
 function updateTime() {
 	var newTime = Math.round(new Date().getTime()/1000);
 	timeElapsed = newTime - timeBegun;
 
-	document.getElementById('time').innerHTML = timeElapsed;
-	setTimeout(updateTime, 1000);
+	timeEl.innerHTML = totalTime + timeElapsed;
+	playTimer = setTimeout(updateTime, 1000);
 }
 
 //called at intervals to update game
@@ -92,6 +97,17 @@ function update() {
 
 //called to stop update
 function stop() {
-	clearTimeout(tid);
+	clearTimeout(gameTimer);
+	clearTimeout(playTimer);
+
+	totalTime += timeElapsed;
+
+	var highest = document.getElementById('highest');
+	if(score > highest.innerHTML) {
+		highest.innerHTML = score;
+	}
+
+	scoreEl.innerHTML = 0;
+	score = 0;
 	speed = 400;
 }

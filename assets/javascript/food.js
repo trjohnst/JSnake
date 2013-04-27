@@ -1,7 +1,7 @@
 var food = {
 	pos : [0,0],
 	reset : function() {
-		setGrid(this.pos[0]+'-'+this.pos[1], 'ground');
+		grid.set(this.pos[0]+'-'+this.pos[1], 'ground');
 	},
 	init : function() {
 		this.reset();
@@ -20,7 +20,7 @@ var food = {
 		}
 
 		//set the position to food
-		setGrid(foodX+'-'+foodY, 'food');
+		grid.set(foodX+'-'+foodY, 'food');
 		this.pos[0] = foodX;
 		this.pos[1] = foodY;
 	}

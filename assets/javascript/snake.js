@@ -7,7 +7,7 @@ var snake = {
 	body : [],
 	reset : function() {
 		for(var i = this.body.pop(); i != null; i = this.body.pop()) {
-			setGrid(i[0]+'-'+i[1], 'ground');
+			grid.set(i[0]+'-'+i[1], 'ground');
 		}
 		this.len = 5;
 		this.dir = 0;
@@ -24,7 +24,7 @@ var snake = {
 		//setup body
 		for( iter = 0; iter < this.len; iter++) {
 			this.body.push([firstX + iter, firstY]);
-			setGrid((firstX+iter)+'-'+firstY, 'snake');
+			grid.set((firstX+iter)+'-'+firstY, 'snake');
 		}
 	},
 	update : function() {
@@ -38,7 +38,7 @@ var snake = {
 		if(newLoc[1] != 'food') {
 			//did not eat food, move normally
 			var tail = this.body.pop();
-			setGrid(tail[0]+'-'+tail[1], 'ground');
+			grid.set(tail[0]+'-'+tail[1], 'ground');
 		} else {
 			//ate food -> increase speed, and make another food
 			speed = Math.floor(9/10*speed);
@@ -48,11 +48,11 @@ var snake = {
 		}
 
 		//set new position
-		setGrid(newLoc[0][0]+'-'+newLoc[0][1], 'snake');
+		grid.set(newLoc[0][0]+'-'+newLoc[0][1], 'snake');
 		this.body.unshift([newLoc[0][0], newLoc[0][1]]);
 
 		//call another update
-		tid = setTimeout(update, speed);
+		gameTimer = setTimeout(update, speed);
 	},
 	isColliding : function() {
 		var newLoc;
