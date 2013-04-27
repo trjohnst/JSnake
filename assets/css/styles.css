@@ -7,6 +7,32 @@ body {
 	color: black;
 	background: #f2f2f2;
 }
+#maincontainer {
+	border: 2px solid black;
+	position: relative;
+	width: 512px;
+	margin-left: -256px;
+	left: 50%;
+}
+#menu {
+	height: 50px;
+}
+#scorecontainer {
+	width: 160px;
+}
+#play {
+	width: 100px;
+	height: 50px;
+	margin-left: -50px;
+	left: 50%;
+	position: absolute;
+}
+#timecontainer {
+	width: 160px;
+	margin-left: -160px;
+	left:100%;
+	position: absolute;
+}
 table {
 	border-collapse: separate;
 	border-spacing: 1px;
@@ -14,20 +40,14 @@ table {
 table#grid {
 	margin: 0;
 	padding: 0;
-	height: 10cm;
-	width: 16cm; 
 }
 td {
 	text-align: left;
 	font-weight: normal;
-	width: 10px;
-	height: 10px;
+	width: 15px;
+	height: 15px;
 	margin: 0;
 	padding: 0;
-}
-.container {
-	display: inline;
-	width: 121px;
 }
 td.ground {
 	background: #a0a0a0;

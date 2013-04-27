@@ -4,14 +4,20 @@
 <title>JavaSnake</title>
 <link href="assets/css/styles.css" rel="stylesheet">
 <script type="text/javascript" src="assets/javascript/game.js"></script>
+<script type="text/javascript" src="assets/javascript/snake.js"></script>
+<script type="text/javascript" src="assets/javascript/food.js"></script>
 
 </head>
 <body>
+
 <p>Tested on Chrome and Firefox</p>
-<div id="menu">
-    <div class="container">Score : <span id="score">0</span></div>
-    <div class="container">Time Played : <span id="time">0</span> sec</div>
+<div id="maincontainer">
+	<div id="menu">
+	    <span id="scorecontainer">Score : <span id="score">0</span></span>
+	    <button id="play" onmousedown="beginPlay();">Play</button>
+	    <span id="timecontainer">Time Played : <span id="time">0</span> sec</span>
+	</div>
+	<table id="grid" />
 </div>
-<table id="grid" />
 </body>
 </html>
