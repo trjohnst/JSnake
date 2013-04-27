@@ -87,3 +87,8 @@ var snake = {
 		return [newLoc,newLocClass];
 	}
 };
+
+//called at intervals to update game
+function update() {
+	snake.update();
+}

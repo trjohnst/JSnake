@@ -14,6 +14,7 @@ var playTimer;
 var timeBegun;
 var timeElapsed;
 var totalTime = 0;
+var timeTaken = 0;
 var grid = {
 	element: null,
 	init: function() {
@@ -37,15 +38,18 @@ var grid = {
 	}
 }
 
-// tell user time before they leave
-// window.onbeforeunload = function() {
-// 	alert('yo');
-// };
+window.onbeforeunload = function() {
+	return "Really? You've only been playing for " + totalTime + " seconds!";
+}
 
 window.onload = function() {
 	scoreEl = document.getElementById('score');
 	timeEl = document.getElementById('time');
 
+	totalTime = cookie.get('time');
+	if(totalTime == null) {
+		totalTime = 0;
+	}
 	timeEl.innerHTML = totalTime;
 
 	document.onkeydown = function(e){
@@ -65,13 +69,13 @@ window.onload = function() {
 		}
 	};
 
+	cookie.init();
 	grid.init();
 };
 
 
 //starts the timer, makes the snake and makes a food
 function beginPlay() {
-
 	timeBegun = Math.round(new Date().getTime()/1000);
 	playTimer = setTimeout(updateTime, 1000);
 
@@ -89,11 +93,7 @@ function updateTime() {
 	playTimer = setTimeout(updateTime, 1000);
 }
 
-//called at intervals to update game
-function update() {
-	// updateSnake();
-	snake.update();
-}
+
 
 //called to stop update
 function stop() {
@@ -101,6 +101,8 @@ function stop() {
 	clearTimeout(playTimer);
 
 	totalTime += timeElapsed;
+
+	cookie.set('time', totalTime, 365);
 
 	var highest = document.getElementById('highest');
 	if(score > highest.innerHTML) {
