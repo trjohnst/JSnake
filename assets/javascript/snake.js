@@ -27,33 +27,6 @@ var snake = {
 			grid.set((firstX+iter)+'-'+firstY, 'snake');
 		}
 	},
-	update : function() {
-		var newLoc = this.isColliding();
-
-		if(newLoc == null) {
-			stop();
-			return;
-		}
-		
-		if(newLoc[1] != 'food') {
-			//did not eat food, move normally
-			var tail = this.body.pop();
-			grid.set(tail[0]+'-'+tail[1], 'ground');
-		} else {
-			//ate food -> increase speed, and make another food
-			speed = Math.floor(9/10*speed);
-			food.move();
-			score++;
-			document.getElementById('score').innerHTML = score;
-		}
-
-		//set new position
-		grid.set(newLoc[0][0]+'-'+newLoc[0][1], 'snake');
-		this.body.unshift([newLoc[0][0], newLoc[0][1]]);
-
-		//call another update
-		gameTimer = setTimeout(update, speed);
-	},
 	isColliding : function() {
 		var newLoc;
 		//find the next grid member to be a snake
@@ -85,6 +58,34 @@ var snake = {
 		}
 
 		return [newLoc,newLocClass];
+	},
+	update : function() {
+		var newLoc = this.isColliding();
+		//var newLoc = Snake.prototype.isColliding.apply(this);
+
+		if(newLoc == null) {
+			stop();
+			return;
+		}
+		
+		if(newLoc[1] != 'food') {
+			//did not eat food, move normally
+			var tail = this.body.pop();
+			grid.set(tail[0]+'-'+tail[1], 'ground');
+		} else {
+			//ate food -> increase speed, and make another food
+			speed = Math.floor(9/10*speed);
+			food.move();
+			score++;
+			document.getElementById('score').innerHTML = score;
+		}
+
+		//set new position
+		grid.set(newLoc[0][0]+'-'+newLoc[0][1], 'snake');
+		this.body.unshift([newLoc[0][0], newLoc[0][1]]);
+
+		//call another update
+		gameTimer = setTimeout(update, speed);
 	}
 };
 

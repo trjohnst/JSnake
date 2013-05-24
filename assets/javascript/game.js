@@ -38,9 +38,9 @@ var grid = {
 	}
 }
 
-window.onbeforeunload = function() {
-	return "Really? You've only been playing for " + totalTime + " seconds!";
-}
+// window.onbeforeunload = function() {
+// 	return "Really? You've only been playing for " + totalTime + " seconds!";
+// }
 
 window.onload = function() {
 	scoreEl = document.getElementById('score');
@@ -54,15 +54,19 @@ window.onload = function() {
 
 	document.onkeydown = function(e){
 		switch(e.keyCode) {
+			case 65: //A
 			case 37: //left arrow
 				if(snake.dir != 2) snake.dir = 0;
 				break;
+			case 87: //W
 			case 38: //up arrow
 				if(snake.dir != 3) snake.dir = 1;
 				break;
+			case 68: //D
 			case 39: //right arrow
 				if(snake.dir != 0) snake.dir = 2;
 				break;
+			case 83: //S
 			case 40: //down arrow
 				if(snake.dir != 1) snake.dir = 3;
 				break;
@@ -80,6 +84,8 @@ function beginPlay() {
 	playTimer = setTimeout(updateTime, 1000);
 
 	gameTimer = setTimeout(update, speed);
+
+	document.getElementById('menucontainer').style.display = 'none';
 
 	snake.init();
 	food.init();
@@ -108,6 +114,8 @@ function stop() {
 	if(score > highest.innerHTML) {
 		highest.innerHTML = score;
 	}
+
+	document.getElementById('menucontainer').style.display = 'block';
 
 	scoreEl.innerHTML = 0;
 	score = 0;

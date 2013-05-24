@@ -7,15 +7,64 @@ body {
 	color: black;
 	background: #f2f2f2;
 }
+@font-face {
+	font-family: silkscreen;
+	src: url('slkscr.ttf');
+}
 #maincontainer {
 	border: 2px solid black;
 	position: relative;
 	width: 512px;
 	margin-left: -256px;
 	left: 50%;
+    background: black;
+
+    font-family: silkscreen;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    line-height: 20px;
+
+	-moz-border-radius: 7px 7px 0 0; /* Firefox */
+    -webkit-border-radius: 7px 7px 0 0; /* Safari, Chrome */
+    border-radius: 7px 7px 0 0; /* CSS3 */
 }
 #menu {
 	height: 50px;
+}
+#menucontainer {
+	position: absolute;
+	z-index: 1;
+	top: 100px;
+	width: 200px;
+	margin-left: -100px;
+	left: 50%;
+}
+.btn {
+	cursor:pointer;
+    font-family: silkscreen;
+    font-size: 30px;
+    color: black;
+    font-weight: bold;
+    line-height: 40px;
+    position: relative;
+    height:40px;
+    -moz-border-radius: 7px; /* Firefox */
+    -webkit-border-radius: 7px; /* Safari, Chrome */
+    border-radius: 7px; /* CSS3 */
+    border:3px solid black;
+    background: #6ECF4D;
+    text-align: center;
+    z-index:2;
+}
+.btn:hover {
+	background-color:#ff5555;
+}
+.menu-btn {
+	margin-top: 10px;
+}
+#menu-container:first-child {
+	margin-top: 0px;
 }
 #scorecontainer {
 	width: 160px;
@@ -28,8 +77,8 @@ body {
 	position: absolute;
 }
 #timecontainer {
-	width: 160px;
-	margin-left: -160px;
+	width: 260px;
+	margin-left: -260px;
 	left:100%;
 	position: absolute;
 }
